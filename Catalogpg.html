@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantam Mold • Catalog</title>
+  <style>
+    :root{
+      --neon:#0ff;
+      --accent:#ff0;
+      --bg:#000;
+      --glass:rgba(255,255,255,0.05);
+    }
+    *,*:before,*:after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#fff;background:var(--bg);min-height:100vh}
+
+    /* -------- header -------- */
+    header{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:var(--glass);backdrop-filter:blur(12px);border-bottom:1px solid #222;z-index:50;animation:slideDown .8s ease-out}
+    .logo{font-size:2rem;font-weight:700;color:var(--neon);text-shadow:0 0 10px var(--neon)}
+    nav a{margin-left:1.25rem;color:var(--accent);font-weight:600;text-decoration:none;transition:all .25s}
+    nav a:hover{color:#000;background:var(--accent);padding:.25rem .6rem;border-radius:8px}
+
+    /* -------- controls -------- */
+    .controls{max-width:1300px;margin:3rem auto 2rem;display:flex;flex-wrap:wrap;gap:1rem;padding:0 1.5rem;opacity:0;transform:translateY(40px);}
+    .controls.reveal{animation:fadeUp .8s .2s forwards}
+    .controls input,.controls select{padding:.6rem 1rem;border-radius:10px;border:none;font-size:1rem}
+    .controls input{flex:1 1 240px}
+
+    /* -------- parallax hero -------- */
+    .hero{position:relative;height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1581093588401-918d5b78b025?auto=format&fit=crop&w=1740&q=80') center/cover fixed;transform:translateZ(0) scale(1.2);will-change:transform}
+    .hero .inner{position:relative;z-index:1}
+    .hero h1{font-size:3.5rem;letter-spacing:2px;color:var(--neon);text-shadow:0 0 6px var(--neon),0 0 12px var(--neon);animation:flicker 2s infinite alternate}
+    @keyframes flicker{0%,18%,22%,25%,53%,57%,100%{opacity:1}20%,24%,55%{opacity:.4}}
+
+    /* -------- catalog grid -------- */
+    .catalog{max-width:1300px;margin:0 auto 4rem;padding:0 1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2rem}
+    .item{background:var(--glass);border:1px solid rgba(255,255,255,0.1);border-radius:18px;backdrop-filter:blur(10px);overflow:hidden;transform:translateY(50px) scale(.95);opacity:0;transition:transform .4s ease,box-shadow .4s ease}
+    .item.show{animation:fadeUpScale .8s var(--delay) forwards}
+    .item:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 0 20px var(--neon),0 0 40px var(--neon)}
+    .thumb{width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(.2);transition:filter .4s}
+    .item:hover .thumb{filter:none}
+    .info{padding:1rem}
+    .info h3{color:var(--neon);font-size:1.1rem;margin-bottom:.4rem;text-shadow:0 0 6px var(--neon)}
+    .tag{display:inline-block;background:var(--accent);color:#000;padding:.2rem .6rem;border-radius:12px;font-size:.75rem;font-weight:700}
+
+    /* -------- footer -------- */
+    footer{padding:2rem 1rem;text-align:center;background:var(--bg);border-top:1px solid #222;color:#888;font-size:.9rem}
+
+    /* -------- keyframes -------- */
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeUpScale{to{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
+
+    /* -------- responsive -------- */
+    @media(max-width:600px){.hero h1{font-size:2.4rem}}
+  </style>
+</head>
+<body>
+  <!-- Hero Parallax -->
+  <section class="hero">
+    <div class="inner">
+      <h1>Quantam Mold Catalog</h1>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <section class="controls" id="controls">
+    <input type="text" id="search" placeholder="Search prints…" />
+    <select id="priceFilter">
+      <option value="all">All Prices</option><option value="0-5">$0‑5</option><option value="5-10">$5‑10</option><option value="10+">$10+</option>
+    </select>
+    <select id="categoryFilter">
+      <option value="all">All Categories</option><option value="utility">Utility</option><option value="decor">Decor</option><option value="toys">Toys</option>
+    </select>
+  </section>
+
+  <!-- Catalog -->
+  <main class="catalog" id="catalog">
+    <!-- sample items remain -->
+  </main>
+
+  <footer><p>Need something special? <a href="https://www.surveylegend.com/s/5zwx" style="color:var(--neon);">Request a custom quote here</a>.<br>&copy; 2025 Quantam Mold. All rights reserved.</p></footer>
+
+  <script>
+    /* ---------- data (quick demo) ---------- */
+    const sample=[
+      {name:"Crystal Controller Stand 1",price:7,cat:"utility",img:"https://images.cults3d.com/KJoMZZ6O1XTjZfyolFYTwUy1DwY=/516x516/filters:no_upscale():format(webp)/https://fbi.cults3d.com/uploaders/21085770/illustration-file/e3606b65-7bde-44d9-b547-75e0ea199634/09EC26AE-1E61-483F-A581-511577CC3FBB.jpeg"},
+      {name:"Headphone Stand 2",price:5,cat:"utility",img:"https://media.printables.com/media/prints/179001/images/1674870_b756d2cc-9776-45b1-b1db-f0b30e3d517c/thumbs/inside/1600x1200/jpg/headphone-stand5.webp"},
+      {name:"Articulated Dragon 3",price:12,cat:"toys",img:"https://media.printables.com/media/prints/843199/images/6491511_217834e9-a087-4ca4-abae-d372432f2da5_d31eeab1-067f-4473-b391-84bebe09296e/thumbs/inside/1600x1200/jpg/dsc_0114.webp"},
+      {name:"Fidget Toy 4",price:8,cat:"decor",img:"https://images.cults3d.com/KEO_7TLc14ZPsHPydB0wHgsIYxY=/516x516/filters:no_upscale():format(webp)/https://fbi.cults3d.com/uploaders/36732134/illustration-file/d9bdbc01-0564-4be0-8406-fcc92f4c1718/77ed3533-0794-4812-a745-bc21365142e1.png"}
+    ];
+
+    const catalog=document.getElementById('catalog');
+    sample.forEach((p,i)=>{
+      const item=document.createElement('div');
+      item.className='item';
+      item.dataset.name=p.name.toLowerCase();
+      item.dataset.price=p.price;
+      item.dataset.cat=p.cat;
+      item.style.setProperty('--delay',`${i*0.1}s`);
+      item.innerHTML=`<img class="thumb" src="${p.img}" alt="${p.name}"><div class="info"><h3>${p.name}</h3><span class="tag">$${p.price}</span></div>`;
+      catalog.appendChild(item);
+    });
+
+    /* ---------- parallax effect ---------- */
+    window.addEventListener('scroll',()=>{
+      const sc=window.scrollY;document.querySelector('.hero::before');
+    });
+
+    /* ---------- scroll reveal ---------- */
+    const observer=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');observer.unobserve(e.target);}});
+    },{threshold:0.15});
+
+    document.querySelectorAll('.item').forEach(i=>observer.observe(i));
+    observer.observe(document.getElementById('controls'));
+
+    /* ---------- filtering ---------- */
+    const search=document.getElementById('search');
+    const priceFilter=document.getElementById('priceFilter');
+    const catFilter=document.getElementById('categoryFilter');
+
+    function priceOK(price,range){if(range==='all')return true;if(range==='10+')return price>=10;const [min,max]=range.split('-').map(Number);return price>=min&&price<=max;}
+    function filter(){const q=search.value.toLowerCase();const p=priceFilter.value;const c=catFilter.value;document.querySelectorAll('.item').forEach(it=>{const vis=it.dataset.name.includes(q)&&priceOK(+it.dataset.price,p)&&(c==='all'||c===it.dataset.cat);it.style.display=vis?'block':'none';});}
+    [search,priceFilter,catFilter].forEach(el=>el.addEventListener('input',filter));
+  </script>
+</body>
+</html>
